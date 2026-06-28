@@ -1,4 +1,4 @@
-from BaseClasses import ItemClassification
+from BaseClasses import ItemClassification as IC
 #"x button icon" 0x808878f8 - 32bit
 #"camera reel 1" 0x80888fbc - 32bit for each picture
 #"ship access" 0x80888a58
@@ -14,7 +14,7 @@ class AnimalPic:
     #memloc is 0x80888fbc start, +0x4 per picture
     memvalue: int
     ItemID: int
-    classification: ItemClassification.progression
+    classification: IC.progression
     ItemType = "Picture"
 
 
@@ -81,7 +81,7 @@ class MDisk:
 #bitfield
     memvalue: int
     ItemID: int
-    classification: ItemClassification.progression
+    classification: IC.progression
     memloc = 0x8088922c
     ItemType = "MDisk"
 
@@ -105,12 +105,19 @@ class KeyItem:
     memloc: int
     memvalue: int
     ItemID: int
-    classification: ItemClassification.progression
+    classification: IC.progression
 
 KeyItems = {
     "Dai-jo":   KeyItem(0x808883e8, 1,  70),
     "Camera":   KeyItem(0x808883d8, 1,  71),
-    "Pearl":    KeyItem(0x8088848c&0x8088bef4,  1,  72)
+    "Pearl":    KeyItem(0x8088848c&0x8088bef4,  1,  72),
+    "City Pass":    KeyItem(0x808883f0, 1,  73),
+    "Triangle Key": KeyItem(0x8088842c, 2,  74),
+    "Star Key": KeyItem(0x80888438, 1,   75),
+    "Square Key":   KeyItem(00000000000000000000000000000000, 1,  76),
+    "Animal Detector":  KeyItem(0x80888420, 1,   77), #IC.useful
+    "Pearl Detector":   KeyItem(0x80888424, 1,   78), #IC.useful
+    "Barranco": KeyItem(0x80887d9c, 1,  79),
 }
 
 class DiskCheck:
@@ -134,13 +141,19 @@ ShipParts = {
 class Junk:
     memloc: int
     memvalue: int
+    classification: int
     ItemID: int | None
 
 JunkItems = {
-    "Starkos":  Junk(0x80888450,    1,  ),
-    "P-O-D":    Junk(0x80888414,    1,  ),
-    "Mecha Impulser":   Junk(),
-    "Boost":    Junk(0x8088846c,    1,  ),
-    "Health":   Junk(0x80887c68,    1,  ), #float
-    "Credits":  Junk(0x80887c78,    1,  ),
+    "Stabiliser for Jade": Junk(0x80888408, 1, IC.filler),
+    "Mecha Impulser for Jade": Junk(0x80888410, 1, IC.filler),
+    "P-O-D for Jade":    Junk(0x80888414,    1,  IC.filler),
+    "P-O-D set for Jade":   Junk(0x80888418,    1,  IC.filler),
+    "KBups for Jade":   Junk(0x80888434,    1,  IC.filler),
+    "PA1 for Jade": Junk(0x80888448, 1, IC.useful),
+    "Starkos for Jade":  Junk(0x80888450,    1,  IC.filler),
+    "SuperAttack for Jade": Junk(0x80888454,    1,  IC.filler),
+    "Boost for Jade": Junk(0x8088846c, 1, IC.filler),
+    "Health for Jade":   Junk(0x80887c68,    1,  IC.filler), #float
+    "Credits":  Junk(0x80887c78,    1,  IC.filler),
 }
